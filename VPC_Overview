@@ -1,71 +1,72 @@
-# Google Cloud VPC Overview
-
-* A **Virtual Private Cloud (VPC)** is a virtualized network inside Google’s infrastructure (built on **Andromeda**) that provides connectivity for **VMs, load balancers, and hybrid connections** (VPN, Interconnect).
-* Projects can have multiple VPCs. By default, a new project gets an **auto mode VPC** (one subnet per region).
+# Google Cloud VPC Summary
 
 ---
 
-### Key Concepts
+## Google Cloud VPC Overview
 
-* **Networks vs. Subnets**:
-
-  * Network = global resource (routes, firewalls).
-  * Subnet = regional resource (IPv4/IPv6 address ranges).
-* **VM Instances**: Compute Engine VMs (including GKE, App Engine flex) run within VPCs.
+- A **Virtual Private Cloud (VPC)** is a virtualized network inside Google’s infrastructure (built on **Andromeda**) that provides connectivity for **VMs, load balancers, and hybrid connections** (VPN, Interconnect).
+- Projects can have multiple VPCs. By default, a new project gets an **auto mode VPC** (one subnet per region).
 
 ---
 
-### Features
+## Key Concepts
 
-* **Global scope**: VPC, routes, and firewalls are global. Subnets are regional.
-* **Addressing**: Supports IPv4-only, dual-stack (IPv4 + IPv6), or IPv6-only subnets.
-* **Security**: Managed by **firewall rules** and **IAM roles**.
-* **Connectivity**:
-
-  * Internal communication via private IPs.
-  * External access via public IPs, Cloud NAT, or proxies.
-  * Hybrid via VPN/Interconnect.
-  * Cross-VPC via **VPC Peering** or **Shared VPC**.
-* **GRE, IPv4, IPv6**: Supports most protocols but not broadcast/multicast.
+- **Networks vs. Subnets**:
+  - Network = global resource (routes, firewalls).
+  - Subnet = regional resource (IPv4/IPv6 address ranges).
+- **VM Instances**: Compute Engine VMs (including GKE, App Engine flex) run within VPCs.
 
 ---
 
-### Modes
+## Features
 
-* **Auto mode VPC**: Creates subnets in every region automatically (simpler, but limited).
-* **Custom mode VPC**: No default subnets; full control (recommended for production).
-* Conversion: Auto → Custom (one-way).
-
----
-
-### Routing & Firewall
-
-* **Routes** define egress paths; **Cloud Router** manages dynamic routing (BGP).
-* **Firewall rules** (and hierarchical policies) control traffic between/into VMs.
-* Default network includes preconfigured rules (e.g., allow internal, SSH, RDP).
+- **Global scope**: VPC, routes, and firewalls are global. Subnets are regional.
+- **Addressing**: Supports IPv4-only, dual-stack (IPv4 + IPv6), or IPv6-only subnets.
+- **Security**: Managed by **firewall rules** and **IAM roles**.
+- **Connectivity**:
+  - Internal communication via private IPs.
+  - External access via public IPs, Cloud NAT, or proxies.
+  - Hybrid via VPN/Interconnect.
+  - Cross-VPC via **VPC Peering** or **Shared VPC**.
+- **GRE, IPv4, IPv6**: Supports most protocols but not broadcast/multicast.
 
 ---
 
-### Access & Connectivity
+## Modes
 
-* VM → Internet requires default route + firewall + external IP or Cloud NAT.
-* App Engine:
-
-  * Standard = App Engine firewalls only.
-  * Flexible = Both App Engine + VPC firewalls.
+- **Auto mode VPC**: Creates subnets in every region automatically (simpler, but limited).
+- **Custom mode VPC**: No default subnets; full control (recommended for production).
+- Conversion: Auto → Custom (one-way).
 
 ---
 
-### Performance
+## Routing & Firewall
 
-* Low-latency, high-throughput backbone with <55μs intra-zone latency.
-* Packet loss target <0.01%.
-* Supports RDMA profiles for AI workloads.
+- **Routes** define egress paths; **Cloud Router** manages dynamic routing (BGP).
+- **Firewall rules** (and hierarchical policies) control traffic between/into VMs.
+- Default network includes preconfigured rules (e.g., allow internal, SSH, RDP).
 
 ---
 
-### Best Practices
+## Access & Connectivity
 
-* Use **Custom mode VPC** for production.
-* Plan subnet ranges to avoid overlaps.
-* Use organization policies to enforce IPv6 usage or restrict default network creation.
+- VM → Internet requires default route + firewall + external IP or Cloud NAT.
+- **App Engine**:
+  - Standard = App Engine firewalls only.
+  - Flexible = Both App Engine + VPC firewalls.
+
+---
+
+## Performance
+
+- Low-latency, high-throughput backbone with <55μs intra-zone latency.
+- Packet loss target <0.01%.
+- Supports RDMA profiles for AI workloads.
+
+---
+
+## Best Practices
+
+- Use **Custom mode VPC** for production.
+- Plan subnet ranges to avoid overlaps.
+- Use organization policies to enforce IPv6 usage or restrict default network creation.
